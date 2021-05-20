@@ -13,11 +13,11 @@ echo "Current IP: ${ORIG_IP}"
 
 cd /etc/openvpn
 
-echo "${purevpn_username}\n${purevpn_password}" > /etc/openvpn/auth.txt
+printf "${purevpn_username}\n${purevpn_password}" > /etc/openvpn/auth.txt
 
 
 # get all location codes
-LOCATIONS=$(ls /etc/openvpn/TCP)
+LOCATIONS=$(ls /etc/openvpn/purevpn/TCP)
 ARRAY=(${LOCATIONS//:/ })
 LEN=${#ARRAY[@]}
 
@@ -26,7 +26,7 @@ RANDOM_LOCATION=${ARRAY[$((RANDOM % $LEN))]}
 
 # connect
 echo "Connecting to ${RANDOM_LOCATION}..."
-openvpn --config "/etc/openvpn/purevpn/${RANDOM_LOCATION" --auth-user-pass /etc/openvpn/auth.txt
+openvpn --config "/etc/openvpn/purevpn/TCP/${RANDOM_LOCATION}" --auth-user-pass /etc/openvpn/auth.txt
 
 # fix resolve
 echo "nameserver 8.8.8.8" > /etc/resolv.conf
